@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\DashboardXpoExample\Form1.cs" Link="Form1.cs" />
+    <Compile Include="..\DashboardXpoExample\Form1.Designer.cs" Link="Form1.Designer.cs" />
+    <Compile Include="..\DashboardXpoExample\ORMDataModel1Code\ConnectionHelper.cs" Link="ORMDataModel1Code\ConnectionHelper.cs" />
+    <Compile Include="..\DashboardXpoExample\ORMDataModel1Code\Customers.cs" Link="ORMDataModel1Code\Customers.cs" />
+    <Compile Include="..\DashboardXpoExample\ORMDataModel1Code\Customers.Designer.cs" Link="ORMDataModel1Code\Customers.Designer.cs" />
+    <Compile Include="..\DashboardXpoExample\Program.cs" Link="Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\DashboardXpoExample\Form1.resx" Link="Form1.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\DashboardXpoExample\App.config" Link="App.config" />
+    <None Include="..\DashboardXpoExample\nwind.sqlite" Link="nwind.sqlite">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Win.BonusSkins" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.Charts" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.Diagram" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.Dialogs" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.Gantt" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.Gauges" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.Map" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.PdfViewer" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.RichEdit" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.Scheduler" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.SpellChecker" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.Spreadsheet" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.TreeMap" Version="21.2.8" />
+    <PackageReference Include="DevExpress.DataAccess.UI" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Utils" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Utils.UI" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Scaffolding.Core" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Scaffolding.EFCore" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win" Version="21.2.8" />
+    <PackageReference Include="DevExpress.Win.Dashboard" Version="21.2.8" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.112.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ORMDataModel1Code\" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataBaseObjectModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="1.0.0.0" Id="425bbe29-6c5c-453a-a542-1819bd829791" namespace="DashboardXpoExample.nwind" dataBaseShemaInfo="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" generateConnectionHelper="true" generateStoredProcedures="false" fieldNameCase="Unchanged" generateDefaultConstructors="false" useNameOf="true" connectionStringName="northwind" createdInVersion="19.2.3.0" generateJsonSerializationContractResolver="false" generateServiceCollectionExtensions="false" lastModifiedInVersion="19.2.3.0" name="nwind" xmlns="http://schemas.microsoft.com/dsltools/ORMDataModel">
+  <comments>
+    <dataBaseObjectModelHasComments Id="f86b410a-db58-4b3d-a125-2b8683c494f6">
+      <comment Id="8a2df6d0-4861-4c86-99bf-96feacc706b7" text="The 'PrimaryKey' index is ignored, because 'CustomerID' is a key" name="CustomersComment">
+        <subjects>
+          <commentReferencesSubjects Id="44d62111-30bd-4c97-bcd6-48b4b8686e5d">
+            <xpObjectMoniker Id="103bec27-8be0-4da1-b4f3-a162eb06ad40" />
+          </commentReferencesSubjects>
+        </subjects>
+      </comment>
+    </dataBaseObjectModelHasComments>
+  </comments>
+  <classes>
+    <dataBaseObjectModelHasClasses Id="de46e8b9-25f5-40c3-81f9-0b5e14611f17">
+      <xpObject Id="103bec27-8be0-4da1-b4f3-a162eb06ad40" name="Customers" baseClass="XPLiteObject" userFileName="Customers" designerFileName="Customers.Designer" className="Customers" virtualBaseClass="XPLiteObject" persistent="Customer" virtualName="Customers">
+        <fields>
+          <generalXpObjectHasFields Id="2ef48feb-5520-40a4-ab7f-2146b7bb7413">
+            <field Id="0487aa4a-fe32-4a58-a9c7-11ca2aa5eef2" name="Address" persistent="Address" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="60" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="84689bc6-d93e-457f-b3be-f02ece83973b">
+            <field Id="d5077516-95e2-4d44-b83f-f28b6acd1ace" name="City" persistent="City" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="15" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="27824275-e9b2-495e-9618-63a8072fd2c9">
+            <field Id="b0a3d681-deca-42ed-84ef-a6f29b57db12" name="CompanyName" persistent="CompanyName" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="40" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="e66d3087-9475-4fa3-8d19-1063feede88b">
+            <field Id="6acfb9f8-2a3c-409c-a0ef-7a3db910a774" name="ContactName" persistent="ContactName" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="30" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="8b8d786a-9d37-454e-afb9-7d3aa7e56538">
+            <field Id="72d10e42-3664-4a6c-900a-b3e0308a3aca" name="ContactTitle" persistent="ContactTitle" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="30" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="75dc0c13-37ab-42c9-9f4d-b6afe3075049">
+            <field Id="20052fff-2499-48ff-9fa4-d79627269f71" name="Country" persistent="Country" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="15" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="93418a7c-57de-4521-b535-8e184c26204c">
+            <field Id="bc1bd357-351a-4bac-a2c4-18c676dfb731" name="CustomerID" key="true" persistent="Id" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="5" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="03e16fec-cac6-457e-aae4-b1f277ef6e3a">
+            <field Id="2eb04cb8-5275-42f8-892d-73034f79d835" name="Fax" persistent="Fax" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="24" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="65af7c2c-01b8-476c-9141-87d7df6e5466">
+            <field Id="53f9114c-0b00-4b54-a6b5-edd026caeff9" name="Phone" persistent="Phone" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="24" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="08d1fec3-ecda-4c06-99ce-0a901a57de40">
+            <field Id="35ae37b8-d1c9-432d-85c0-f55953f79821" name="PostalCode" persistent="PostalCode" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="10" />
+          </generalXpObjectHasFields>
+          <generalXpObjectHasFields Id="9ba70494-6aaa-4f51-af41-6f69894b4251">
+            <field Id="bba37afc-b6b9-4675-a1b5-2879536bb164" name="Region" persistent="Region" virtualColumnType="String" delayedUpdateModifiedOnly="false" size="15" />
+          </generalXpObjectHasFields>
+        </fields>
+        <indexes>
+          <xpObjectHasIndexes Id="a89fa441-b22a-4e9c-900b-2cf587f97dbf">
+            <index Id="378bb9ec-38df-497d-97de-c7600cb468e4" name="City">
+              <fieldsInIndex>
+                <indexReferencesFields Id="ccb909f4-9425-41e7-b146-fe577f12ff72">
+                  <fieldMoniker Id="d5077516-95e2-4d44-b83f-f28b6acd1ace" />
+                </indexReferencesFields>
+              </fieldsInIndex>
+            </index>
+          </xpObjectHasIndexes>
+          <xpObjectHasIndexes Id="06e3f831-f3ba-4ace-aa2e-76a9d135aaae">
+            <index Id="d1375dcd-6195-4d09-9d2f-5e1f88a88329" name="CompanyName">
+              <fieldsInIndex>
+                <indexReferencesFields Id="b1855ffa-25a2-4a3f-bd27-37fb4f050ab9">
+                  <fieldMoniker Id="b0a3d681-deca-42ed-84ef-a6f29b57db12" />
+                </indexReferencesFields>
+              </fieldsInIndex>
+            </index>
+          </xpObjectHasIndexes>
+          <xpObjectHasIndexes Id="0a9b5acf-4f7d-4856-ab95-a4cb9f37b8cb">
+            <index Id="6a3a5ebb-8bc5-4271-8c20-9a9409d2bd3b" name="PostalCode">
+              <fieldsInIndex>
+                <indexReferencesFields Id="7f9014d9-94bd-405f-8dd4-9da6af0b9666">
+                  <fieldMoniker Id="35ae37b8-d1c9-432d-85c0-f55953f79821" />
+                </indexReferencesFields>
+              </fieldsInIndex>
+            </index>
+          </xpObjectHasIndexes>
+          <xpObjectHasIndexes Id="be815fa7-bb78-48ab-be12-bce55b4db1d1">
+            <index Id="b49fe82c-6817-4d13-95bb-2573f288fe25" name="Region">
+              <fieldsInIndex>
+                <indexReferencesFields Id="684d8c73-a36e-4bd2-8098-e38511376b20">
+                  <fieldMoniker Id="bba37afc-b6b9-4675-a1b5-2879536bb164" />
+                </indexReferencesFields>
+              </fieldsInIndex>
+            </index>
+          </xpObjectHasIndexes>
+        </indexes>
+      </xpObject>
+    </dataBaseObjectModelHasClasses>
+  </classes>
+</dataBaseObjectModel>

@@ -1,5 +1,4 @@
-﻿using DevExpress.DashboardCommon;
-using DevExpress.Data.Filtering;
+﻿using DevExpress.Data.Filtering;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
@@ -7,21 +6,6 @@ using DevExpress.Xpo.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
-public class MyCustomXpoDataSource: DashboardXpoDataSource
-{
-    
-    public MyCustomXpoDataSource()
-    {
-       this.AfterFill += MyCustomXpoDataSource_AfterFill;   
-    }
-
-    private void MyCustomXpoDataSource_AfterFill(object sender, EventArgs e)
-    {
-       
-        
-    }
-}
 public class MyCustomXpoDataStore : IDataStore, ICommandChannel
 {
 
@@ -53,11 +37,11 @@ public class MyCustomXpoDataStore : IDataStore, ICommandChannel
         return $"XpoProvider={XpoProviderTypeString};RealCnx='{RealCnx}'";
     }
     public new const string XpoProviderTypeString = nameof(MyCustomXpoDataStore);
-    public AutoCreateOption AutoCreateOption => this.dataStore.AutoCreateOption;
+    public AutoCreateOption AutoCreateOption => dataStore.AutoCreateOption;
 
     public object Do(string command, object args)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public ModificationResult ModifyData(params ModificationStatement[] dmlStatements)
@@ -67,7 +51,7 @@ public class MyCustomXpoDataStore : IDataStore, ICommandChannel
 
     public SelectedData SelectData(params SelectStatement[] selects)
     {
-        Dictionary<int,CriteriaOperatorCollection> values = new Dictionary<int, CriteriaOperatorCollection>();
+        Dictionary<int, CriteriaOperatorCollection> values = new Dictionary<int, CriteriaOperatorCollection>();
         for (int i = 0; i < selects.Length; i++)
         {
             SelectStatement selectStatement = selects[i];
@@ -76,25 +60,25 @@ public class MyCustomXpoDataStore : IDataStore, ICommandChannel
             values.Add(i, selectStatement.Operands);
 
         }
-        
+
         SelectedData selectedData = dataStore.SelectData(selects);
         foreach (KeyValuePair<int, CriteriaOperatorCollection> value in values)
         {
             for (int i = 0; i < value.Value.Count; i++)
             {
-                var Operand=value.Value[i] as QueryOperand;
-                if(Operand!=null)
+                var Operand = value.Value[i] as QueryOperand;
+                if (Operand != null)
                 {
-                    if(Operand.ColumnType== DBColumnType.DateTime)
+                    if (Operand.ColumnType == DBColumnType.DateTime)
                     {
                         foreach (SelectStatementResultRow selectStatementResultRow in selectedData.ResultSet[value.Key].Rows)
                         {
                             selectStatementResultRow.Values[i] = new DateTime(2022, 1, 1);
                         }
-                        //selectedData.ResultSet[value.Key].Rows[i]
+                     
                     }
                 }
-                //
+                
             }
 
         }

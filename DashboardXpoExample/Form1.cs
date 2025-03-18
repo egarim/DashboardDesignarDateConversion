@@ -47,43 +47,126 @@ namespace DashboardXpoExample
         {
             try
             {
-                // Get all types from the current assembly
-                var currentAssembly = Assembly.GetExecutingAssembly();
-                var types = currentAssembly.GetTypes();
+                // Get all assemblies loaded in the current application domain
+                var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-                // Also consider patching methods from other relevant assemblies
-                // For DevExpress controls, you might want to be selective
+                // Excluded assemblies that shouldn't be patched (add more as needed)
+                var excludedAssemblies = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "mscorlib",
+            "System",
+            "System.Core",
+            "WindowsBase",
+            "PresentationCore",
+            "PresentationFramework",
+            "Microsoft.CSharp",
+            "netstandard",
+            "System.Drawing",
+            "System.Xml"
+        };
 
-                foreach (var type in types)
+                // Determine if an assembly should be patched
+                bool ShouldPatchAssembly(Assembly assembly)
                 {
-                    // Skip delegates, interfaces, abstract classes, etc.
-                    if (type.IsInterface || type.IsAbstract || type.IsEnum)
-                        continue;
+                    string assemblyName = assembly.GetName().Name;
 
-                    var methods = type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic |
-                                                 BindingFlags.Instance | BindingFlags.Static |
-                                                 BindingFlags.DeclaredOnly);
+                    // Skip excluded system assemblies
+                    if (excludedAssemblies.Contains(assemblyName))
+                        return false;
 
-                    foreach (var method in methods)
+                    // Optional: Skip dynamic assemblies to avoid potential issues
+                    if (assembly.IsDynamic)
+                        return false;
+
+                    return true;
+                }
+
+                // Process each assembly
+                foreach (var assembly in loadedAssemblies.Where(ShouldPatchAssembly))
+                {
+                    Debug.WriteLine($"Patching assembly: {assembly.GetName().Name}");
+
+                    Type[] types;
+                    try
                     {
-                        // Skip certain methods that shouldn't be patched
-                        if (method.IsAbstract || method.IsGenericMethod ||
-                            method.IsDefined(typeof(CompilerGeneratedAttribute), false))
+                        // GetTypes can throw if assembly has unresolved references
+                        types = assembly.GetTypes();
+                    }
+                    catch (ReflectionTypeLoadException ex)
+                    {
+                        // Continue with types that could be loaded
+                        types = ex.Types.Where(t => t != null).ToArray();
+                        Debug.WriteLine($"Some types couldn't be loaded in {assembly.GetName().Name}: {ex.Message}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"Error loading types from {assembly.GetName().Name}: {ex.Message}");
+                        continue;
+                    }
+
+                    foreach (var type in types)
+                    {
+                        // Skip delegates, interfaces, abstract classes, etc.
+                        if (type.IsInterface || type.IsAbstract || type.IsEnum ||
+                            type.IsValueType || type.IsGenericTypeDefinition)
                             continue;
 
+                        // Skip special types that shouldn't be patched
+                        if (type.FullName?.StartsWith("System.") == true  ||
+                           
+                            type.FullName?.StartsWith("Microsoft.") == true ||
+                            type.FullName?.StartsWith("<>") == true ||  // Skip compiler generated types
+                            type.FullName?.StartsWith("Castle.") == true ||  // Skip DynamicProxy types
+                            type == typeof(MethodTimeTracker))  // Skip our tracker to avoid infinite recursion
+                            continue;
+
+                        if (!type.FullName?.StartsWith("DevExpress.Dashboard.") == true
+                             || !type.FullName?.StartsWith("DevExpress.Data.") == true
+                              || !type.FullName?.StartsWith("DevExpress.Xpo.") == true
+                              || !type.FullName?.StartsWith("DevExpress.Utils.") == true
+                               || !type.FullName?.StartsWith("DevExpress.XtraGrid.") == true ||
+                                type == typeof(MethodTimeTracker))  // Skip our tracker to avoid infinite recursion
+                            continue;
+
+                      
+
+                        MethodInfo[] methods;
                         try
                         {
-                            // Create prefix and postfix methods
-                            var prefix = new HarmonyMethod(typeof(MethodTimeTracker),
-                                            nameof(MethodTimeTracker.Prefix));
-                            var postfix = new HarmonyMethod(typeof(MethodTimeTracker),
-                                            nameof(MethodTimeTracker.Postfix));
-
-                            harmony.Patch(method, prefix, postfix);
+                            methods = type.GetMethods(BindingFlags.Public | 
+                                                     BindingFlags.Instance | BindingFlags.Static |
+                                                     BindingFlags.DeclaredOnly);
                         }
                         catch (Exception ex)
                         {
-                            Debug.WriteLine($"Failed to patch method {method.Name} in {type.FullName}: {ex.Message}");
+                            Debug.WriteLine($"Error getting methods from {type.FullName}: {ex.Message}");
+                            continue;
+                        }
+
+                        foreach (var method in methods)
+                        {
+                            // Skip methods that shouldn't be patched
+                            if (method.IsAbstract || method.IsGenericMethod ||
+                                method.ContainsGenericParameters ||
+                                method.IsDefined(typeof(CompilerGeneratedAttribute), false) ||
+                                method.Name.Contains("<") ||  // Skip compiler generated methods
+                                method.DeclaringType != type) // Only patch methods directly declared in this type
+                                continue;
+
+                            try
+                            {
+                                // Create prefix and postfix methods
+                                var prefix = new HarmonyMethod(typeof(MethodTimeTracker),
+                                                nameof(MethodTimeTracker.Prefix));
+                                var postfix = new HarmonyMethod(typeof(MethodTimeTracker),
+                                                nameof(MethodTimeTracker.Postfix));
+
+                                harmony.Patch(method, prefix, postfix);
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine($"Failed to patch method {method.Name} in {type.FullName}: {ex.Message}");
+                            }
                         }
                     }
                 }
@@ -94,6 +177,58 @@ namespace DashboardXpoExample
                     "Patching Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        //private void ApplyMethodTracking()
+        //{
+        //    try
+        //    {
+        //        // Get all types from the current assembly
+        //        var currentAssembly = Assembly.GetExecutingAssembly();
+        //        var types = currentAssembly.GetTypes();
+
+        //        // Also consider patching methods from other relevant assemblies
+        //        // For DevExpress controls, you might want to be selective
+
+        //        foreach (var type in types)
+        //        {
+        //            // Skip delegates, interfaces, abstract classes, etc.
+        //            if (type.IsInterface || type.IsAbstract || type.IsEnum)
+        //                continue;
+
+        //            var methods = type.GetMethods(BindingFlags.Public | BindingFlags.NonPublic |
+        //                                         BindingFlags.Instance | BindingFlags.Static |
+        //                                         BindingFlags.DeclaredOnly);
+
+        //            foreach (var method in methods)
+        //            {
+        //                // Skip certain methods that shouldn't be patched
+        //                if (method.IsAbstract || method.IsGenericMethod ||
+        //                    method.IsDefined(typeof(CompilerGeneratedAttribute), false))
+        //                    continue;
+
+        //                try
+        //                {
+        //                    // Create prefix and postfix methods
+        //                    var prefix = new HarmonyMethod(typeof(MethodTimeTracker),
+        //                                    nameof(MethodTimeTracker.Prefix));
+        //                    var postfix = new HarmonyMethod(typeof(MethodTimeTracker),
+        //                                    nameof(MethodTimeTracker.Postfix));
+
+        //                    harmony.Patch(method, prefix, postfix);
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    Debug.WriteLine($"Failed to patch method {method.Name} in {type.FullName}: {ex.Message}");
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Error applying Harmony patches: {ex.Message}",
+        //            "Patching Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
         public void InitializeDashboard()
         {
